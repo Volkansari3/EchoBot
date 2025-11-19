@@ -11,4 +11,4 @@
 
 ## Technologies Used
 - Python, FastAPI, OpenAI API
-- Jinja2, HTML, CSS, Bootstrap
+-  HTML, CSS, Bootstrap, Jinja2
