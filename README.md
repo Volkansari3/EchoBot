@@ -12,3 +12,5 @@
 ## Technologies Used
 - Python, FastAPI, OpenAI API
 -  HTML, CSS, Bootstrap, Jinja2
+
+![EchoBot](https://raw.githubusercontent.com/Volkansari3/EchoBot/main/static/Echo-Bot.png)
