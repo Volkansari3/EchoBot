@@ -9,16 +9,16 @@
         body {
             display: flex;
             background-color: #F7F4EF;
-            font-family: Inter, Arial, sans-serif;
+            font-family: Inter;
             margin: 0;
-            padding-top: 0;   /* Start directly from the top of the page */
+            padding-top: 0;  /* Start directly from the top of the page */
         }
 
         /* LEFT PANEL */
         .left_part {
             background-color: #F0E9DF;
             height: 100vh;
-            width: 240px;
+            width: 200px;
             border-right: 5px solid #D8D2C4;
             line-height: 1.5;
             padding: 20px;
@@ -43,21 +43,21 @@
 
         /* MAIN CONTENT */
         .content_part {
-            flex: 1;         /* Fill the remaining space with flex:1 */
+            flex: 1;   /* Fill the remaining space with flex:1 */
             text-align: center;
-            padding-top: 10px;
+            padding-top: 20px;
             position: relative;
             margin: 0 auto;
         }
 
         .header {
-            position: relative;     /* relative is used for reference to absolute elements */
+            position: relative;  /* relative is used for reference to absolute elements */
             height: 150px;
             padding: 20px;
         }
 
         .header img {
-            position: absolute;     /* This .header img is now positioned relative to the corners of the header because position=absolute */+
+            position: absolute;  /* This .header img is now positioned relative to the corners of the header because position=absolute */
             top: 0px;
             right: 20px;
             height: 100px;
@@ -78,11 +78,11 @@
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             max-width: 600px;
-            margin: 20px auto;   /* Margin is the distance between the outer boxes of the box */
+            margin: 20px auto;  /* Margin is the distance between the outer boxes of the box */
         }
 
         .chat-bar input {
-            flex: 1;            /* flex: 1 means fill the empty space */
+            flex: 1;  /* flex: 1 means fill the empty space */
             padding: 10px 14px;
             border-radius: 8px;
             border: 1px solid #ccc;
@@ -90,23 +90,24 @@
         }
 
         .chat-bar button {
-            padding: 10px 18px;   /* Padding is the space inside the box*/
+            padding: 10px 18px;  /* Padding is the space inside the box*/
             background-color: #5A3E2B;
             color: white;
             border: none;
-            border-radius: 8px;   /* It makes the edges roundish*/
+            border-radius: 8px;  /* It makes the edges roundish*/
             cursor: pointer;
             font-size: 1rem;
         }
 
         .chat-bar button:hover {
-            background-color: #4A3323;
+            background-color: #C65A2E;
         }
 
         /* CHAT HISTORY */
         .chat-container {
             max-width: 600px;
             margin: 20px auto;
+            text-align: left;
         }
 
         .message {
@@ -116,20 +117,23 @@
             border-radius: 10px;
             box-shadow: 0 0 5px rgba(0,0,0,0.1);
             font-size: 1rem;
-            text-align: left;
         }
 
+        .user {
+            border-left: 4px solid #5A3E2B;
+        }
+
+        .bot {
+            border-left: 4px solid #C65A2E;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- LEFT PANEL -->
     <div class="left_part">
-
         <h3>EchoBot – Your Earthquake Support Assistant</h3>
         <hr>
-
         <p>EchoBot provides users with emotional support, clear guidance, and helpful information during and after earthquakes.</p>
 
         <ul>
@@ -138,15 +142,12 @@
             <li>Helps users stay focused, informed, and emotionally steady during challenging situations</li>
         </ul>
 
-        <h3 class="warning">Warning!</h3>
+        <h3 class="warning"> Warning!</h3>
         <hr>
-
         <p>EchoBot does not replace official emergency services.<br>
            Users should always contact authorized emergency responders in dangerous or life-threatening situations.</p>
-
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="content_part">
 
         <div class="header">
@@ -157,22 +158,24 @@
             <h1>ECHO BOT</h1>
         </div>
 
-        <!-- CHAT INPUT -->
+        <!-- CHAT INPUT — FORM DEPENDENT ON BACKEND -->
         <form class="chat-bar" action="/" method="POST">
             <input type="text" placeholder="Write something..." name="user_input" required />
             <button type="submit">Send</button>
         </form>
 
-        <!-- CHAT HISTORY -->
+        <!-- CHAT HISTORY (Jinja2 loop) -->
         <div class="chat-container">
-            {% for msg in chat_responses %}
-                <div class="message {{ msg.sender }}">
-                    {{ msg.text }}
-                </div>
-            {% endfor %}
+            {% if chat_responses %}
+                {% for msg in chat_responses %}
+                    <div class="message {{ msg.sender }}">
+                        {{ msg.text }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
-
     </div>
-
 </body>
 </html>
+
+<!-- msg.sender indicates who the message is from, user or bot -->
